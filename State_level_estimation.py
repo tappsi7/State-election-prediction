@@ -18,7 +18,7 @@ import json
 import urllib.request
 import io
 
-WEBHOOK_URL = "https://discord.com/api/webhooks/1543621099391033484/DXg9rVkol50guOay58udCb6vnqjq905M9UXfctbQNSsTxK4MB4LVQg0EDqpdPAWunzVB"
+WEBHOOK_URL = ""
 
 def send_discord_message(text):
     payload = {"content": text}
