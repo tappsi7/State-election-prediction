@@ -38,9 +38,9 @@ def send_discord_message(text):
     except Exception as e:
         print(f"Failed to send message: {e}")
 
-nt_dat = pd.read_csv("C:/Users/fabia/OneDrive/Desktop/Prediction/combined_data/combined.csv")
+nt_dat = pd.read_csv("combined.csv")
 
-st_dat = pd.read_csv("C:/Users/fabia/OneDrive/Desktop/Prediction/SAAH_polling_data/SAN.csv")
+st_dat = pd.read_csv("SAN.csv")
 
 nt_dat["Date"] = pd.to_datetime(nt_dat["Date"])
 
@@ -133,7 +133,7 @@ stan_data = {
 
 from cmdstanpy import CmdStanModel
 
-model = CmdStanModel(stan_file="C:/Users/fabia/OneDrive/Desktop/Prediction/State_level_dirichlet.stan")
+model = CmdStanModel(stan_file="State_level_dirichlet.stan")
 
 P = y_nat.shape[1]
 J = int(nt_dat["institute_id"].max())
@@ -163,7 +163,7 @@ fit = model.sample(
     chains=4,
     iter_warmup=1000,
     iter_sampling=1000,
-    output_dir='C:/Users/fabia/OneDrive/Desktop/Prediction/output',
+    output_dir='output',
     show_progress=True,
     inits=init_fun()         # <-- this was missing
 )
@@ -177,7 +177,7 @@ np.save("draws.npy", draws)
 draws_df = fit.draws_pd()
 
 draws_df.to_csv(
-    "C:/Users/fabia/OneDrive/Desktop/Prediction/output/posterior_draws.csv",
+    "posterior_draws.csv",
     index=False
 )
 
